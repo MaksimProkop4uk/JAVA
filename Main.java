@@ -1,37 +1,38 @@
-import java.util.regex.*;
-import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 public class Main {
+    /*
+     * Напишите метод, который составит строку, состоящую из 100 повторений слова
+     * TEST и метод,
+     * который запишет эту строку в простой текстовый файл, обработайте исключения.
+     */
     public static void main(String[] args) {
-        BufferedReader inputStream = new BufferedReader(new InputStreamReader(System.in));
+        FourthTask fourthTask = new FourthTask();
+        fourthTask.writer();
 
-        try {
+        class FourthTask {
 
-            System.out.print("Sample input: ");
-            String input = inputStream.readLine();
-            System.out.print("Sample output: ");
-            System.out.print(isPalindrome(input));
+            public StringBuilder generateString() {
+                StringBuilder stringBuilder = new StringBuilder();
+                for (int i = 0; i < 100; i++) {
+                    stringBuilder.append("TEST ");
+                }
+                return stringBuilder;
+            }
 
-        } catch (IOException exception) {
-            System.err.println("Input error");
+            public void writer() {
+                try {
+                    FileOutputStream fileOutputStream = new FileOutputStream("test.txt");
+
+                    fileOutputStream.write(generateString().toString().getBytes());
+
+                    fileOutputStream.close();
+                } catch (IOException e) {
+                    System.out.println("Проблема вывода!");
+                    e.printStackTrace();
+                }
+            }
         }
-    }
-
-    public static boolean isPalindrome(String input) {
-        Pattern pattern = Pattern.compile("\\w+");
-        Matcher matcher = pattern.matcher(input);
-        StringBuilder builder = new StringBuilder();
-
-        while (matcher.find())
-            builder.append(matcher.group());
-
-        String result = builder.toString();
-        String reverseResult = builder.reverse().toString();
-
-        if(result.compareToIgnoreCase(reverseResult) == 0)
-            return true;
-        return false;
     }
 }
