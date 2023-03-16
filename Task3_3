@@ -1,0 +1,29 @@
+public static void main(String[] args) {
+        List<Object> allCards = new ArrayList<>();
+        allCards.add(2);
+        allCards.add(2);
+        allCards.add(3);
+        allCards.add('K');
+        allCards.add('J');
+        Scanner scan = new Scanner(System.in);
+        while (true) {
+            String line = scan.nextLine();
+            try {
+                int num = Integer.parseInt(line);
+                for(Iterator<Object> it = allCards.iterator(); it.hasNext(); ) {
+                    Object o = it.next();
+                    if ((o instanceof Integer) && (Integer) o == num) {
+                        allCards.remove(o); break;
+                    }
+                }
+            } catch (Exception ex) {
+                char c = line.charAt(0);
+                for(Iterator<Object> it = allCards.iterator(); it.hasNext(); ) {
+                    Object o = it.next();
+                    if ((o instanceof Character) && (Character) o == c) {
+                        allCards.remove(o); break;
+                    }
+                }
+            }
+        }
+    }
